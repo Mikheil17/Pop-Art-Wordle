@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle</title>
+
+    <link rel="icon" href="./Images/why.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+
+    <h1>Wordle</h1>
+
+    <div id="message" class="hidden"></div>
+
+    <div id="game-board">
+        <div class="container">
+            <div class="row row1">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row row2">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row row3">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row row4">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row row5">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row row6">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="keyboard">
+        <div class="container">
+            <div class="keyboardRow k1">
+                <div class="key"><button>Q</button></div>
+                <div class="key"><button>W</button></div>
+                <div class="key"><button>E</button></div>
+                <div class="key"><button>R</button></div>
+                <div class="key"><button>T</button></div>
+                <div class="key"><button>Y</button></div>
+                <div class="key"><button>U</button></div>
+                <div class="key"><button>I</button></div>
+                <div class="key"><button>O</button></div>
+                <div class="key"><button>P</button></div>
+            </div>
+            <div class="keyboardRow k2">
+                <div class="key"><button>A</button></div>
+                <div class="key"><button>S</button></div>
+                <div class="key"><button>D</button></div>
+                <div class="key"><button>F</button></div>
+                <div class="key"><button>G</button></div>
+                <div class="key"><button>H</button></div>
+                <div class="key"><button>J</button></div>
+                <div class="key"><button>K</button></div>
+                <div class="key"><button>L</button></div>
+            </div>
+            <div class="keyboardRow k3">
+                <div class="key key-l"><button>Enter</button></div>
+                <div class="key"><button>Z</button></div>
+                <div class="key"><button>X</button></div>
+                <div class="key"><button>C</button></div>
+                <div class="key"><button>V</button></div>
+                <div class="key"><button>B</button></div>
+                <div class="key"><button>N</button></div>
+                <div class="key"><button>M</button></div>
+                <div class="key key-l"><button>⌫</button></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>
