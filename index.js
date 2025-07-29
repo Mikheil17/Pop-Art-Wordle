@@ -1,5 +1,5 @@
-var wordBank = ["apple", "snake", "orate", "phone", "slimy"];
-var randomWord = wordBank[Math.floor(Math.random() * wordBank.length)].toUpperCase();
+// var wordBank = ["apple", "snake", "orate", "phone", "slimy"];
+var randomWord = randomWordsList[Math.floor(Math.random() * randomWordsList.length)].toUpperCase();
 console.log(randomWord);
 
 var chosenWord = "";
@@ -13,30 +13,33 @@ $(document).keydown(async function(event) {
 });
 
 async function makeGuess(word) {
-    if(!checkDictionaryTrue(word)) {return;}
+    const isValid = await checkDictionaryTrue(word);
 
-    if(word === randomWord) {
-        await correctLetters(word, randomWord);
-        if(row === 6 ) {
-            showMessage("Phew");
-        }
-        else {
-            showMessage("Good Job!");
-            dance(row);
-        }
-        gameOver = true;
-    }
-    else {
-        if(row === 6) {
+    if(isValid) {
+
+        if(word === randomWord) {
             await correctLetters(word, randomWord);
-            showMessage("Maybe Next Time...");
+            if(row === 6 ) {
+                showMessage("Phew");
+            }
+            else {
+                showMessage("Good Job!");
+                dance(row);
+            }
             gameOver = true;
-        } 
+        }
         else {
-            await correctLetters(word, randomWord);
-            row++;
-            index = 0;
-            chosenWord = "";
+            if(row === 6) {
+                await correctLetters(word, randomWord);
+                showMessage("Maybe Next Time...");
+                gameOver = true;
+            } 
+            else {
+                await correctLetters(word, randomWord);
+                row++;
+                index = 0;
+                chosenWord = "";
+            }
         }
     }
 }
@@ -145,21 +148,17 @@ function pressKey(key, color) {
 }
 
 async function checkDictionaryTrue(word) {
-  try {
-    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}/`);
-    const data = await res.json();
-    console.log(data);
 
-  } catch (error){
-        console.error("You remain bored. API failed:", error); 
+    if(wordBank.includes(word.toLowerCase())){
+        return true;
+    }
+    else {
         incorrect("Not in word list");
         return false;
     }
 }
 
 function incorrect(message) {
-    // message;
-    // shake;
-    console.log(message);
-
+    showMessage(message);
+    // shake();
 }
