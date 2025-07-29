@@ -13,6 +13,8 @@ $(document).keydown(async function(event) {
 });
 
 async function makeGuess(word) {
+    if(!checkDictionaryTrue(word)) {return;}
+
     if(word === randomWord) {
         await correctLetters(word, randomWord);
         if(row === 6 ) {
@@ -123,8 +125,13 @@ async function inputLetter(key) {
         index++;
         chosenWord += key;
     }
-    else if(key === "ENTER" && index === 5){
-        await makeGuess(chosenWord);
+    else if(key === "ENTER"){
+        if(index === 5) {
+            await makeGuess(chosenWord);
+        }
+        else {
+            incorrect("Not enough letters");
+        }
     }    
 }
 
@@ -135,4 +142,24 @@ function pressKey(key, color) {
     else {
         $(`.k1 button:contains('${key}')`).addClass(color);
     }
+}
+
+async function checkDictionaryTrue(word) {
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}/`);
+    const data = await res.json();
+    console.log(data);
+
+  } catch (error){
+        console.error("You remain bored. API failed:", error); 
+        incorrect("Not in word list");
+        return false;
+    }
+}
+
+function incorrect(message) {
+    // message;
+    // shake;
+    console.log(message);
+
 }
