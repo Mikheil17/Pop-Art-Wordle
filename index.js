@@ -1,4 +1,3 @@
-// var wordBank = ["apple", "snake", "orate", "phone", "slimy"];
 var randomWord = randomWordsList[Math.floor(Math.random() * randomWordsList.length)].toUpperCase();
 console.log(randomWord);
 
@@ -46,14 +45,29 @@ async function makeGuess(word) {
 }
 
 async function correctLetters(word, randomWord) {
+    let greenLetters = {};
+    let yellowLetters = {};
+    
+    function countCharacters(str, char) {
+        return str.split('').reduce(function(count, currentChar) {
+            return currentChar === char ? count + 1 : count;
+        }, 0);
+    }
+
+    for(let i = 0; i < 5; i++) {
+        if(word[i] === randomWord[i]) {
+            greenLetters[word[i]] = (greenLetters[word[i]] || 0) + 1;
+        }
+    }
 
     for(let i = 0; i < 5; i++) {
 
         if(word[i] === randomWord[i]) {
             $(".row" + row).children().eq(i).addClass("green").addClass("flipped").addClass("flipped-frame");
         }
-        else if(randomWord.includes(word[i])) {
+        else if(randomWord.includes(word[i]) && countCharacters(randomWord, word[i]) > ((greenLetters[word[i]] || 0) + (yellowLetters[word[i]] || 0))) {
             $(".row" + row).children().eq(i).addClass("yellow").addClass("flipped").addClass("flipped-frame");
+            yellowLetters[word[i]] = (yellowLetters[word[i]] || 0) + 1;
         }
         else {
             $(".row" + row).children().eq(i).addClass("gray").addClass("flipped").addClass("flipped-frame");
@@ -75,11 +89,8 @@ async function correctLetters(word, randomWord) {
         else {
             pressKey(word[i], "gray");
         } 
-
     }
-
 }
-
 
 function popLetter(tile) {
     tile.addClass("pop");
@@ -140,12 +151,8 @@ async function inputLetter(key) {
 }
 
 function pressKey(key, color) {
-    if(key !== "E") {
-        $(`button:contains('${key}')`).addClass(color);
-    }
-    else {
-        $(`.k1 button:contains('${key}')`).addClass(color);
-    }
+    $(`button:contains('${key}')`).addClass(color);
+    $('.enter button').removeClass(color);
 }
 
 async function checkDictionaryTrue(word) {
