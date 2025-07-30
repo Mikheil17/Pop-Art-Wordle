@@ -172,3 +172,6 @@ async function shake(row) {
     await pause(350);
     $(".row" + row).children().removeClass("shake");
 }
+
+
+// pop art additions
