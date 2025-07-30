@@ -94,8 +94,8 @@ h1 {
   display: none;
 }
 
-.green {
-    background-color: #6aaa64;
+.gray {
+    background-color: #787c7e;
     color: white;
 }
 
@@ -104,8 +104,8 @@ h1 {
     color: white;
 }
 
-.gray {
-    background-color: #787c7e;
+.green {
+    background-color: #6aaa64;
     color: white;
 }
 
