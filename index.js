@@ -79,13 +79,13 @@ async function correctLetters(word, randomWord) {
 
 }
 
-
 function popLetter(tile) {
     tile.addClass("pop");
     setTimeout(function() {
         tile.removeClass("pop");
     }, 100);
     tile.toggleClass("frame");
+    tile.toggleClass("gloss");
 }
 
 function pause(milliseconds) {
