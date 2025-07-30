@@ -21,6 +21,7 @@ async function makeGuess(word) {
             await correctLetters(word, randomWord);
             if(row === 6 ) {
                 showMessage("Phew");
+                dance(row);
             }
             else {
                 showMessage("Good Job!");
@@ -31,7 +32,7 @@ async function makeGuess(word) {
         else {
             if(row === 6) {
                 await correctLetters(word, randomWord);
-                showMessage("Maybe Next Time...");
+                showMessage(randomWord);
                 gameOver = true;
             } 
             else {
@@ -160,5 +161,14 @@ async function checkDictionaryTrue(word) {
 
 function incorrect(message) {
     showMessage(message);
-    // shake();
+    shake(row);
+}
+
+async function shake(row) {
+    for(let i = 0; i < 5; i++) {
+        $(".row" + row).children().eq(i).addClass("shake");
+    }
+
+    await pause(350);
+    $(".row" + row).children().removeClass("shake");
 }
