@@ -1,4 +1,3 @@
-// var wordBank = ["apple", "snake", "orate", "phone", "slimy"];
 var randomWord = randomWordsList[Math.floor(Math.random() * randomWordsList.length)].toUpperCase();
 console.log(randomWord);
 
@@ -173,5 +172,8 @@ async function shake(row) {
     $(".row" + row).children().removeClass("shake");
 }
 
-
-// pop art additions
+$('.tile').each(function () {
+      const randDeg = Math.floor(Math.random() * 360);
+      const filterVal = `hue-rotate(${randDeg}deg) saturate(3)`;
+      $(this).css('filter', filterVal);
+    });
