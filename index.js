@@ -20,11 +20,12 @@ async function makeGuess(word) {
         if(word === randomWord) {
             await correctLetters(word, randomWord);
             if(row === 6 ) {
-                showMessage("Phew");
+                showComicMessage("omg", 750);
                 dance(row);
             }
             else {
-                showMessage("Good Job!");
+                let ran = Math.floor(Math.random() * 4 + 1);
+                showComicMessage(`win${ran}`, 750);
                 dance(row);
                 $(".row" + row).children().addClass("explode");
                 await pause(300)
@@ -39,6 +40,7 @@ async function makeGuess(word) {
             if(row === 6) {
                 await correctLetters(word, randomWord);
                 showMessage(randomWord);
+                showComicMessage("zap", 750);
                 gameOver = true;
             } 
             else {
@@ -81,9 +83,7 @@ async function correctLetters(word, randomWord) {
         else {
             pressKey(word[i], "gray");
         } 
-
     }
-
 }
 
 function popLetter(tile) {
@@ -92,7 +92,6 @@ function popLetter(tile) {
         tile.removeClass("pop");
     }, 100);
     tile.toggleClass("frame");
-
 }
 
 function pause(milliseconds) {
@@ -100,9 +99,19 @@ function pause(milliseconds) {
 }
 
 function showMessage(msg) {
-    $("#message").text(msg).removeClass("hidden");
-    setTimeout(function() {$("#message").addClass("hidden");}, 1500);
+    $("#answer-message").text(msg).removeClass("hidden");
+    setTimeout(function() {$("#answer-message").addClass("hidden");}, 2000);
 }
+
+function showComicMessage(word, duration) {
+    const img = document.getElementById("msg-img");
+    img.src = `./Images/explosions/${word}.png`;
+    $("#message").removeClass("hidden");
+    setTimeout(function () {
+        $("#message").addClass("hidden");
+    }, duration);
+}
+
 
 async function dance(row) {
     for(let i = 0; i < 5; i++) {
@@ -146,7 +155,8 @@ async function inputLetter(key) { //word messes up sometimes and includes last l
             awaitingGuess = false;
         }
         else {
-            incorrect("Not enough letters");
+            showComicMessage("oops", 500);
+            shake(row);
         }
     }    
     else if(/^[A-Z]$/.test(key) && index < 5) {
@@ -184,14 +194,10 @@ async function checkDictionaryTrue(word) {
         return true;
     }
     else {
-        incorrect("Not in word list");
+        showComicMessage("smack", 500);
+        shake(row);
         return false;
     }
-}
-
-function incorrect(message) {
-    showMessage(message);
-    shake(row);
 }
 
 async function shake(row) {
@@ -217,6 +223,6 @@ function confettiExplosion(row) {
   confetti({
     particleCount: 150,
     spread: 90,
-    origin: { y: originY } //change it so that height matches row
+    origin: { y: originY * 3 } //change it so that height matches row
   });
 }
