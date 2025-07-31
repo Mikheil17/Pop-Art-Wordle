@@ -6,6 +6,7 @@ var chosenLetter;
 var row = 1;
 var index = 0;
 var gameOver = false;
+var awaitingGuess = false;
 
 $(document).keydown(async function(event) {
     inputLetter(event.key.toUpperCase());
@@ -25,7 +26,13 @@ async function makeGuess(word) {
             else {
                 showMessage("Good Job!");
                 dance(row);
+                $(".row" + row).children().addClass("explode");
+                await pause(300)
+                $(".row" + row).children().removeClass("explode");
+
+        
             }
+            confettiExplosion(row);
             gameOver = true;
         }
         else {
@@ -49,13 +56,13 @@ async function correctLetters(word, randomWord) {
     for(let i = 0; i < 5; i++) {
 
         if(word[i] === randomWord[i]) {
-            $(".row" + row).children().eq(i).addClass("green").addClass("flipped").addClass("flipped-frame");
+            $(".row" + row).children().eq(i).addClass("green").addClass("flipped").removeClass("frame").removeAttr("style").addClass("glossy");
         }
         else if(randomWord.includes(word[i])) {
-            $(".row" + row).children().eq(i).addClass("yellow").addClass("flipped").addClass("flipped-frame");
+            $(".row" + row).children().eq(i).addClass("yellow").addClass("flipped").removeClass("frame").removeAttr("style").addClass("glossy");
         }
         else {
-            $(".row" + row).children().eq(i).addClass("gray").addClass("flipped").addClass("flipped-frame");
+            $(".row" + row).children().eq(i).addClass("gray").addClass("flipped").removeClass("frame").removeAttr("style");
         } 
 
         await pause(350);
@@ -85,7 +92,7 @@ function popLetter(tile) {
         tile.removeClass("pop");
     }, 100);
     tile.toggleClass("frame");
-    tile.toggleClass("gloss");
+
 }
 
 function pause(milliseconds) {
@@ -109,18 +116,49 @@ $("button").click(function() {
     this.blur();
 });
 
-async function inputLetter(key) {
-    if (gameOver) {return;}
+async function inputLetter(key) { //word messes up sometimes and includes last letter of previous guess or deleted key
+    if (gameOver || awaitingGuess) {return;}
 
     if(key === "BACKSPACE" || key === "DELETE" || key === "⌫") {
+        if(index > 5) {
+            index = 5;
+        }
         if(index > 0) {
             index--;
             chosenWord = chosenWord.slice(0, -1);
-            $(".row" + row).children().eq(index).html(``).toggleClass("frame");
+            $(".row" + row).children().eq(index).html(``).removeClass("glossy").toggleClass("frame");
+
+            $(".delete").addClass("pressed");
+            await pause(100);
+            $(".delete").removeClass("pressed");
         };
         
     } 
+    else if(key === "ENTER"){
+        $(".enter").addClass("pressed");
+        await pause(100);
+        $(".enter").removeClass("pressed");
+
+        if(index >= 5) {
+            
+            awaitingGuess =  true;
+            await makeGuess(chosenWord);
+            awaitingGuess = false;
+        }
+        else {
+            incorrect("Not enough letters");
+        }
+    }    
     else if(/^[A-Z]$/.test(key) && index < 5) {
+
+        const $button = $(`.key button`).filter(function () {
+            return $(this).text() === key;
+        });
+        const $keyDiv = $button.closest(".key");
+
+        $keyDiv.addClass("pressed");
+        await pause(100);
+        $keyDiv.removeClass("pressed");
 
         $(".row" + row).children().eq(index).html(`<p>${key}</p>`);
         popLetter($(".row" + row).children().eq(index));
@@ -128,14 +166,7 @@ async function inputLetter(key) {
         index++;
         chosenWord += key;
     }
-    else if(key === "ENTER"){
-        if(index === 5) {
-            await makeGuess(chosenWord);
-        }
-        else {
-            incorrect("Not enough letters");
-        }
-    }    
+
 }
 
 function pressKey(key, color) {
@@ -177,3 +208,15 @@ $('.tile').each(function () {
       const filterVal = `hue-rotate(${randDeg}deg) saturate(3)`;
       $(this).css('filter', filterVal);
     });
+
+function confettiExplosion(row) {
+    const rowTop = $(".row" + row).offset().top;
+    const windowHeight = $(window).height();
+    const originY = rowTop / windowHeight;
+
+  confetti({
+    particleCount: 150,
+    spread: 90,
+    origin: { y: originY } //change it so that height matches row
+  });
+}
