@@ -1,5 +1,4 @@
 var randomWord = randomWordsList[Math.floor(Math.random() * randomWordsList.length)].toUpperCase();
-console.log(randomWord);
 
 var chosenWord = "";
 var chosenLetter;
@@ -223,6 +222,28 @@ function confettiExplosion(row) {
   confetti({
     particleCount: 150,
     spread: 90,
-    origin: { y: originY * 3 } //change it so that height matches row
+    origin: { y: originY * 2 } //change it so that height matches row
   });
 }
+
+$("#reveal-button").click(function () {
+  $('h1').text(randomWord);
+
+  setTimeout(function () {
+    $('h1').text('Wordle');
+  }, 3000);
+});
+
+$('#toggle-mode').change(function () {
+  const sound = new Audio('./switch.mp3');
+  sound.currentTime = 0;
+  sound.play();
+
+  $('body').toggleClass('comic-mode');
+
+  $('body').addClass('glitch-switch');
+  setTimeout(function () { $('body').removeClass('glitch-switch'), 400});
+
+});
+
+document.body.classList.toggle('comic-mode');
