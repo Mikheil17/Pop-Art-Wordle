@@ -5,7 +5,7 @@ html {
     box-sizing: border-box;
 }
 
-body.comic-mode {
+body {
     background-image: url('./Images/comic.jpg');
     background-size: contain;
     background-position: center;
@@ -13,7 +13,7 @@ body.comic-mode {
     position: relative;
 }
 
-body.comic-mode::before {
+body::before {
     content: "";
     position: fixed;
     inset: 0;
@@ -23,7 +23,7 @@ body.comic-mode::before {
     pointer-events: none;
 }
 
-body.comic-mode::after {
+body::after {
     content: "";
     position: fixed;
     inset: 0;
@@ -46,7 +46,7 @@ body.comic-mode::after {
     }
 }
 
-body.comic-mode h1 {
+ h1 {
     font-family: "Bangers", cursive;
     font-size: 5rem;
     text-align: center;
@@ -113,7 +113,7 @@ body.comic-mode h1 {
     }
 }
 
-body.comic-mode .pop {
+.pop {
     animation-name: popOut;
     animation-duration: 0.1s;
 }
@@ -162,14 +162,14 @@ body.comic-mode .pop {
     }
 }
 
-body.comic-mode .dance {
+.dance {
     animation-name: liftUp;
     animation-duration: 0.6s;
     animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
     animation-fill-mode: both;
 }
 
-body.comic-mode #answer-message {
+#answer-message {
     position: fixed;
     top: 1rem;
     left: 50%;
@@ -186,7 +186,7 @@ body.comic-mode #answer-message {
     letter-spacing: 0.1rem;
 }
 
-body.comic-mode #msg-img {
+#msg-img {
     height: 30rem;
     width: auto;
     position: fixed;
@@ -222,7 +222,7 @@ body.comic-mode #msg-img {
     }
 }
 
-body.comic-mode .tile {
+.tile {
     background-image: url("./Images/monroe.jpg");
     background-position: center;
     background-size: contain;
@@ -231,51 +231,51 @@ body.comic-mode .tile {
     justify-content: center;
 }
 
-body.comic-mode .frame {
+.frame {
     filter: none !important;
     box-shadow: inset 0 0 0 3px #fb1d36;
 }
 
-body.comic-mode .flipped {
+.flipped {
     animation-name: flipOut;
     animation-duration: 0.4s;
 }
 
-body.comic-mode .hidden {
+.hidden {
     display: none;
 }
 
-body.comic-mode .gray {
+.gray {
     background-color: #808080;
     color: white;
     filter: grayscale()
 }
 
-body.comic-mode .yellow {
+.yellow {
     background-color: #FED715;
     background-image: none;
     color: white;
     filter: none;
 }
 
-body.comic-mode .green {
+.green {
     background-color: #39FF14;
     background-image: none;
     color: white;
     filter: none;
 }
 
-body.comic-mode .tile.yellow {
+.tile.yellow {
     border: 3px solid white;
     box-shadow: inset 0 0 0.5rem white, 0 0 1rem #FED715;
 }
 
-body.comic-mode .tile.green {
+.tile.green {
     border: 3px solid white;
     box-shadow: inset 0 0 0.5rem white, 0 0 1rem #39FF14;
 }
 
-body.comic-mode p {
+p {
     color: white;
     font-size: 3rem;
     font-family: "Bangers", cursive;
@@ -287,8 +287,8 @@ body.comic-mode p {
     z-index: 2;
 }
 
-body.comic-mode #game-board,
-body.comic-mode #keyboard {
+#game-board,
+#keyboard {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -298,7 +298,7 @@ body.comic-mode #keyboard {
     backface-visibility: hidden;
 }
 
-body.comic-mode #game-board .container {
+#game-board .container {
     display: grid;
     grid-template-rows: repeat(6, 1fr);
     gap: 0.3rem;
@@ -308,7 +308,7 @@ body.comic-mode #game-board .container {
     background-color: #000;
 }
 
-body.comic-mode .row {
+.row {
     display: grid;
     height: 100%;
     width: 100%;
@@ -316,7 +316,7 @@ body.comic-mode .row {
     gap: 0.3rem;
 }
 
-body.comic-mode #keyboard .container {
+#keyboard .container {
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     width: auto;
@@ -325,7 +325,7 @@ body.comic-mode #keyboard .container {
     margin: 0.85rem;
 }
 
-body.comic-mode .keyboardRow {
+.keyboardRow {
     margin: 0;
     display: flex;
     justify-content: center;
@@ -333,7 +333,7 @@ body.comic-mode .keyboardRow {
     gap: 0.45rem;
 }
 
-body.comic-mode .key {
+.key {
     height: 3rem;
     aspect-ratio: 3 / 4;
     box-shadow: 0.4rem 0.4rem 0 rgba(0, 0, 0, 0.788);
@@ -351,7 +351,7 @@ body.comic-mode .key {
     background-color: #b0975b;;
 }
 
-body.comic-mode .key.pressed {
+.key.pressed {
     transform: translate(0.15rem, 0.15rem);
     box-shadow: 0.2rem 0.2rem 0 rgb(34, 34, 34);
     border: 4px solid lightgray;
@@ -362,16 +362,16 @@ body.comic-mode .key.pressed {
     inset 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
-body.comic-mode .key-l {
+.key-l {
     aspect-ratio: 4.65 / 4;
 }
 
-body.comic-mode .tile {
+.tile {
     position: relative;
     overflow: hidden;
 }
 
-body.comic-mode .tile::after {
+.tile::after {
     content: "";
     position: absolute;
     top: -50%;
@@ -390,7 +390,7 @@ body.comic-mode .tile::after {
     transition: opacity 0.3s ease-in-out;
 }
 
-body.comic-mode .tile.glossy::after {
+.tile.glossy::after {
     opacity: 1;
 }
 
@@ -409,27 +409,27 @@ body.comic-mode .tile.glossy::after {
     }
 }
 
-body.comic-mode .tile:nth-child(1).glossy::after {
+.tile:nth-child(1).glossy::after {
     animation-delay: 0s;
 }
 
-body.comic-mode .tile:nth-child(2).glossy::after {
+.tile:nth-child(2).glossy::after {
     animation-delay: 0.3s;
 }
 
-body.comic-mode .tile:nth-child(3).glossy::after {
+.tile:nth-child(3).glossy::after {
     animation-delay: 0.6s;
 }
 
-body.comic-mode .tile:nth-child(4).glossy::after {
+.tile:nth-child(4).glossy::after {
     animation-delay: 0.9s;
 }
 
-body.comic-mode .tile:nth-child(5).glossy::after {
+.tile:nth-child(5).glossy::after {
     animation-delay: 1.2s;
 }
 
-body.comic-mode button {
+button {
     width: 100%;
     height: 100%;
     font-size: 2rem;
@@ -470,19 +470,19 @@ body.comic-mode button {
     }
 }
 
-body.comic-mode .explode {
+.explode {
     animation: explodeOut 0.4s ease;
     z-index: 10;
 }
 
-body.comic-mode .shake {
+.shake {
     animation-name: shakeX;
     animation-duration: 0.4s;
     animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
     animation-fill-mode: both;
 }
 
-body.comic-mode #reveal-button {
+#reveal-button {
     width: auto;
     height: auto;
     position: fixed;
@@ -504,7 +504,7 @@ body.comic-mode #reveal-button {
     transition: transform 0.1s ease;
 }
 
-body.comic-mode #reveal-button:active {
+#reveal-button:active {
     transform: translate(0.15rem, 0.15rem);
     box-shadow: 0.2rem 0.2rem 0 rgb(0, 0, 0);
 }

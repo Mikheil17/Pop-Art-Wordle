@@ -1,0 +1,338 @@
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+}
+
+h1 {
+    font-size: 3rem;
+    color: rgb(25, 25, 25);
+    font-family: "Libre Franklin", sans-serif;
+    font-weight: bold;
+    text-align: center;
+    margin: 0.75rem;
+    letter-spacing: 0.5rem;
+    text-shadow: rgb(192, 191, 191) 0.2rem 0.2rem;
+}
+
+.tile {
+    background-color: #fff;
+    border: solid 0.125rem #d3d6da;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@keyframes popOut {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.05);}
+    100% {transform: scale(1);}
+}
+
+.pop {
+    animation-name: popOut;
+    animation-duration: 0.1s;
+}
+
+.frame{
+    border-color: gray;
+}
+
+@keyframes flipOut {
+    0% {transform: scaleY(1);}
+    25% {transform: scaleY(0.5);}
+    50% {transform: scaleY(0.05);}
+    75% {transform: scaleY(0.5);}
+    100% {transform: scaleY(1);}
+}
+
+@keyframes liftUp {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-1.5rem); }
+  50%  { transform: translateY(0); }
+  70%  { transform: translateY(-0.5rem); }
+  100% { transform: translateY(0); }
+}
+
+.dance {
+  animation-name: liftUp;
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation-fill-mode: both;
+}
+
+.flipped-frame{
+    border: 0;
+}
+
+.flipped-frame p{
+    color: white;
+}
+
+.flipped{
+    animation-name: flipOut;
+    animation-duration: 0.4s;
+}
+
+#message {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  font-family: "Libre Franklin", sans-serif;
+  font-weight: bold;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 3px;
+  z-index: 999;
+  transition: opacity 0.3s;
+}
+
+.hidden {
+  display: none;
+}
+
+.gray {
+    background-color: #787c7e;
+    color: white;
+}
+
+.yellow {
+    background-color: #c9b458;
+    color: white;
+}
+
+.green {
+    background-color: #6aaa64;
+    color: white;
+}
+
+p{
+    color: black;
+    font-size: 2rem;
+    font-family: "Libre Franklin", sans-serif;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#game-board, #keyboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    width: fit-content;
+    margin: auto;
+    background-color: white;
+}
+
+#game-board .container {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 0.3rem;
+    margin: 0 1rem;
+    width: 20rem;
+    aspect-ratio: 5 / 6;
+}
+
+.row {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.3rem;
+}
+
+#keyboard .container {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    width: auto;
+    height: auto;
+    gap: 0.45rem;
+    margin-top: 1rem;
+}
+
+.keyboardRow {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.key {
+    height: 4rem;
+    aspect-ratio: 3 / 4;
+    background-color: white;
+}
+
+/* .key.pressed button:active {
+    background-color: rgb(179, 182, 185);
+} */
+
+.key-l {
+    aspect-ratio: 4.65 / 4;
+}
+
+#keyboard button {
+    width: 100%;
+    height: 100%;
+    font-size: 1.5rem;
+    font-family: "Libre Franklin", sans-serif;
+    font-weight: bold;
+    border-radius: 10%;
+    background: #d3d6da;
+    border: none;
+    cursor: pointer;
+}
+
+#keyboard button:active {
+    background: rgb(179, 182, 185);
+}
+
+.shake {
+    animation-name: shakeX;
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation-fill-mode: both;
+}
+
+@keyframes shakeX {
+  0%   { transform: translateX(0); }
+  10%  { transform: translateX(0.25rem); }
+  20%  { transform: translateX(0rem); }
+  30%  { transform: translateX(-0.25rem); }
+  40%  { transform: translateX(0); }
+  50%  { transform: translateX(0.25rem); }
+  60%  { transform: translateX(0); }
+  70%  { transform: translateX(-0.25rem); }
+  80%  { transform: translateX(0); }
+  90%  { transform: translateX(0.25rem); }
+  100% { transform: translateX(0); }
+}
+
+.switch {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  z-index: 999;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: background 0.6s ease, box-shadow 0.4s;
+  border-radius: 34px;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+}
+
+input:checked + .slider {
+  background: linear-gradient(
+    135deg,
+    #70410c 0%,
+    #e79039 50%,
+    #ff8d60 100%
+  );
+  box-shadow: 0 0 12px #413e0b,
+              0 0 18px #d88424,
+              inset 0 0 5px #1e1c00;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+  background: radial-gradient(
+    circle at 30% 30%,
+    #fff3b9 20%,
+    #ffbf00 40%,
+    rgba(90, 55, 23, 0.741) 100%
+  );
+  box-shadow: 0 0 8px #4b2602,
+              inset 0 0 4px #fff5ea;
+}
+
+#reveal-button {
+    width: auto;
+    height: auto;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem;
+    font-family: "Libre Franklin", sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    background: #d3d6da;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    z-index: 999;
+    border: none;
+}
+
+#reveal-button:active {
+    background: rgb(179, 182, 185);
+}
+
+@media (max-width: 1024px) {
+    html {
+        font-size: 10px;
+    }
+
+    #game-board .container {
+        width: 80vw;
+    }
+
+    h1{
+        font-size: 8rem;
+    }
+
+    .key {
+        height: auto;
+        width: 8vw;
+        aspect-ratio: 1 / 2;
+    }
+
+    .key-l {
+        width: 13vw;
+        aspect-ratio: 1.625 / 2;
+    }
+
+    .row, .keyboardRow, #keyboard .container, #game-board .container {
+        gap: 0.6rem;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+    button {
+        font-size: 4rem;
+    }
+}
