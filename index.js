@@ -103,6 +103,7 @@ function showMessage(msg) {
 }
 
 function showComicMessage(word, duration) {
+    new Audio('./Sounds/bang.mp3').play();
     const img = document.getElementById("msg-img");
     img.src = `./Images/explosions/${word}.png`;
     $("#message").removeClass("hidden");
@@ -139,6 +140,7 @@ async function inputLetter(key) { //word messes up sometimes and includes last l
             $(".delete").addClass("pressed");
             await pause(100);
             $(".delete").removeClass("pressed");
+            new Audio("./Sounds/typing.mp3").play();
         };
         
     } 
@@ -146,6 +148,7 @@ async function inputLetter(key) { //word messes up sometimes and includes last l
         $(".enter").addClass("pressed");
         await pause(100);
         $(".enter").removeClass("pressed");
+        new Audio("./Sounds/typing.mp3").play();
 
         if(index >= 5) {
             
@@ -174,16 +177,17 @@ async function inputLetter(key) { //word messes up sometimes and includes last l
       
         index++;
         chosenWord += key;
+        new Audio("./Sounds/typing.mp3").play();
     }
 
 }
 
 function pressKey(key, color) {
     if(key !== "E") {
-        $(`button:contains('${key}')`).addClass(color);
+        $(`#game-board button:contains('${key}')`).addClass(color);
     }
     else {
-        $(`.k1 button:contains('${key}')`).addClass(color);
+        $(`#game-board k1 button:contains('${key}')`).addClass(color);
     }
 }
 
@@ -227,6 +231,10 @@ function confettiExplosion(row) {
 }
 
 $("#reveal-button").click(function () {
+  const sound = new Audio('./Sounds/button.mp3');
+  sound.currentTime = 0;
+  sound.play();
+
   $('h1').text(randomWord);
 
   setTimeout(function () {
@@ -235,7 +243,7 @@ $("#reveal-button").click(function () {
 });
 
 $('#toggle-mode').change(function () {
-  const sound = new Audio('./switch.mp3');
+  const sound = new Audio('./Sounds/switch.mp3');
   sound.currentTime = 0;
   sound.play();
 
