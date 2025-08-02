@@ -136,9 +136,9 @@ function showComicMessage(word, duration) {
     new Audio('./Sounds/bang.mp3').play();
     const img = document.getElementById("msg-img");
     img.src = `./Images/explosions/${word}.png`;
-    $("#message").removeClass("hidden");
+    $("#comic-message").removeClass("hidden");
     setTimeout(function() {
-        $("#message").addClass("hidden");
+        $("#comic-message").addClass("hidden");
     }, duration);
 }
 
@@ -244,7 +244,7 @@ async function checkDictionaryTrue(word) {
         if (isComic) {
             showComicMessage("smack", 500);
         } else {
-            showMessage("Not enough letters")
+            showMessage("Not in word list")
         }
         shake(row);
         return false;
