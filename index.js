@@ -1,11 +1,11 @@
 var randomWord = randomWordsList[Math.floor(Math.random() * randomWordsList.length)].toUpperCase();
-
-var chosenWord = "";
+var chosenWordArray = [];
 var chosenLetter;
 var row = 1;
 var index = 0;
 var gameOver = false;
 var awaitingGuess = false;
+var isInputLocked = false;
 
 const currentStyle = document.getElementById("theme-style").getAttribute("href");
 isComic = currentStyle.includes("comic.css");
@@ -49,14 +49,14 @@ async function makeGuess(word) {
                 await correctLetters(word, randomWord);
                 row++;
                 index = 0;
-                chosenWord = "";
+                chosenWordArray = [];
             }
         }
     }
 }
 
 async function correctLetters(word, randomWord) {
-     let greenLetters = {};
+    let greenLetters = {};
     let yellowLetters = {};
     
     function countCharacters(str, char) {
@@ -149,8 +149,8 @@ $("button").click(function() {
     this.blur();
 });
 
-async function inputLetter(key) { //word messes up sometimes and includes last letter of previous guess or deleted key
-    if (gameOver || awaitingGuess) {return;}
+async function inputLetter(key) {
+    if (gameOver || awaitingGuess || isInputLocked) {return;}
 
     if(key === "BACKSPACE" || key === "DELETE" || key === "⌫") {
         if(index > 5) {
@@ -158,11 +158,13 @@ async function inputLetter(key) { //word messes up sometimes and includes last l
         }
         if(index > 0) {
             index--;
-            chosenWord = chosenWord.slice(0, -1);
+            chosenWordArray.pop();
             $(".row" + row).children().eq(index).html(``).removeClass("glossy").toggleClass("frame");
 
             $(".delete").addClass("pressed");
-            await pause(100);
+            isInputLocked = true;
+            await pause(30);
+             isInputLocked = false;
             $(".delete").removeClass("pressed");
             if(isComic) {new Audio("./Sounds/typing.mp3").play();}
         };
@@ -170,14 +172,16 @@ async function inputLetter(key) { //word messes up sometimes and includes last l
     } 
     else if(key === "ENTER"){
         $(".enter").addClass("pressed");
-        await pause(100);
+        isInputLocked = true;
+        await pause(30);
+        isInputLocked = false;
         $(".enter").removeClass("pressed");
         if(isComic) {new Audio("./Sounds/typing.mp3").play();}
 
         if(index >= 5) {
             
             awaitingGuess =  true;
-            await makeGuess(chosenWord);
+            await makeGuess(chosenWordArray.join(""));
             awaitingGuess = false;
         }
         else {
@@ -195,17 +199,19 @@ async function inputLetter(key) { //word messes up sometimes and includes last l
         const $keyDiv = $button.closest(".key");
 
         $keyDiv.addClass("pressed");
-        await pause(100);
+        await pause(30);
         $keyDiv.removeClass("pressed");
 
         $(".row" + row).children().eq(index).html(`<p>${key}</p>`);
         popLetter($(".row" + row).children().eq(index));
       
         index++;
-        chosenWord += key;
+        chosenWordArray.push(key);
         if(isComic) {new Audio("./Sounds/typing.mp3").play();}
     }
-
+    if(chosenWordArray.length > 5) {
+        chosenWordArray = chosenWordArray.slice( 0, 5);
+    }
 }
 
 function pressKey(key, color) {
@@ -285,12 +291,30 @@ $('#toggle-mode').change(function () {
     isComic = false;
   }
 
-  $('body').addClass('glitch-switch');
-  setTimeout(function () {
-    $('body').removeClass('glitch-switch');
-  }, 400);
+  glitchEffect();
 });
 
+async function glitchEffect(duration = 200) {
+  const styleLink = document.getElementById("theme-style");
+  const originalHref = styleLink.getAttribute("href");
 
-//use chosenWord with .join("") to fix bug
-//add glitch effect: glitching colors and stuff, and the modes switching back and forth quickly
+  let isComicTheme = originalHref.includes("comic.css");
+  let startTime = performance.now();
+
+  $("body").addClass("glitchy glitch-overlay");
+
+  const interval = setInterval(() => {
+
+    styleLink.href = isComicTheme ? "classic.css" : "comic.css";
+    isComicTheme = !isComicTheme;
+  }, 30);
+
+  await pause(duration);
+
+  clearInterval(interval);
+  styleLink.href = originalHref;
+
+  $("body").removeClass("glitchy glitch-overlay");
+}
+
+//add glitch sound

@@ -483,14 +483,18 @@ button {
 }
 
 #reveal-button {
-    width: auto;
-    height: auto;
+    /* width: auto;
+    height: auto; */
+    width: 129.25px;
+    height: 34.4px;
     position: fixed;
     top: 1rem;
     left: 1rem;
     padding: 0.5rem;
     font-family: "Bangers", cursive;
     font-size: 1rem;
+    text-align: center;
+    letter-spacing: 0.1rem;
     text-shadow: 0.5px 0.5px 0 #fff7d0;
     background: rgb(255, 191, 0);
     border: 3px solid rgba(92, 55, 0, 0.753);
@@ -574,9 +578,29 @@ input:checked + .slider:before {
               inset 0 0 4px #fff5ea;
 }
 
-/* .glitch-switch {
+.glitch-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 0, 0, 0.2) 0px,
+    rgba(0, 255, 0, 0.2) 1px,
+    rgba(0, 0, 255, 0.2) 2px
+  );
+  animation: scanlines 0.2s infinite;
+  z-index: 9999;
+  pointer-events: none;
+}
 
-} */
+@keyframes scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(1px); }
+}
+
+body.glitchy {
+  filter: contrast(2) saturate(3) hue-rotate(120deg);
+}
 
 @keyframes shakeX {
     0% {
