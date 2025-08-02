@@ -81,12 +81,12 @@ async function correctLetters(word, randomWord) {
     for (let i = 0; i < 5; i++) {
 
         if (word[i] === randomWord[i]) {
-            $(".row" + row).children().eq(i).addClass("green").addClass("flipped").removeClass("frame").removeAttr("style").addClass("glossy").addClass("flipped-frame");
+            $(".row" + row).children().eq(i).removeClass("frame").removeAttr("style").addClass("flipped").addClass("glossy").addClass("flipped-frame").addClass("green");
         } else if (randomWord.includes(word[i]) && countCharacters(randomWord, word[i]) > ((greenLetters[word[i]] || 0) + (yellowLetters[word[i]] || 0))) {
-            $(".row" + row).children().eq(i).addClass("yellow").addClass("flipped").removeClass("frame").removeAttr("style").addClass("glossy").addClass("flipped-frame");;
+            $(".row" + row).children().eq(i).removeClass("frame").removeAttr("style").addClass("flipped").addClass("glossy").addClass("flipped-frame").addClass("yellow");
             yellowLetters[word[i]] = (yellowLetters[word[i]] || 0) + 1;
         } else {
-            $(".row" + row).children().eq(i).addClass("gray").addClass("flipped").removeClass("frame").removeAttr("style").addClass("flipped-frame");
+            $(".row" + row).children().eq(i).removeClass("frame").removeAttr("style").addClass("flipped").addClass("flipped-frame").addClass("gray");
         }
 
         await pause(350);
@@ -229,11 +229,8 @@ async function inputLetter(key) {
 }
 
 function pressKey(key, color) {
-    if (key !== "E") {
-        $(`#game-board button:contains('${key}')`).addClass(color);
-    } else {
-        $(`#game-board k1 button:contains('${key}')`).addClass(color);
-    }
+    $(`button:contains('${key}')`).addClass(color).addClass(`comic-${color}`);
+    $('.enter button').removeClass(color).removeClass(`comic-${color}`);;
 }
 
 async function checkDictionaryTrue(word) {
