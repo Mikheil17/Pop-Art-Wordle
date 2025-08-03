@@ -10,6 +10,47 @@ var isInputLocked = false;
 const currentStyle = document.getElementById("theme-style").getAttribute("href");
 isComic = currentStyle.includes("comic.css");
 
+const imagePaths = [
+    './Images/explosions/omg.png',
+    './Images/explosions/win1.png',
+    './Images/explosions/win2.png',
+    './Images/explosions/win3.png',
+    './Images/explosions/win4.png',
+    './Images/explosions/zap.png',
+    './Images/explosions/oops.png',
+    './Images/explosions/smack.png',
+    './Images/icon.png',
+    './Images/comic.jpg',
+    './Images/dots.jpg',
+    './Images/monroe.jpg',
+    './Images/tile.png'
+];
+
+const soundPaths = [
+    './Sounds/bang.mp3',
+    './Sounds/typing.mp3',
+    './Sounds/switch.mp3',
+    './Sounds/button.mp3',
+    './Sounds/glitch1.m4a',
+    './Sounds/glitch3.m4a'
+];
+
+function preloadEverything() {
+    imagePaths.forEach(path => {
+        const img = new Image();
+        img.src = path;
+    });
+
+    soundPaths.forEach(path => {
+        const audio = new Audio(path);
+        audio.preload = 'auto';
+        audio.load();
+    });
+}
+
+window.addEventListener('load', preloadEverything);
+
+
 $(document).keydown(async function(event) {
     inputLetter(event.key.toUpperCase());
 });
@@ -139,6 +180,7 @@ function showComicMessage(word, duration) {
     $("#comic-message").removeClass("hidden");
     setTimeout(function() {
         $("#comic-message").addClass("hidden");
+        img.src = "";
     }, duration);
 }
 
