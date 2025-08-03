@@ -273,6 +273,7 @@ async function inputLetter(key) {
 function pressKey(key, color) {
     $(`button:contains('${key}')`).addClass(color).addClass(`comic-${color}`);
     $('.enter button').removeClass(color).removeClass(`comic-${color}`);;
+    $('#reveal-button').removeClass(color).removeClass(`comic-${color}`);;
 }
 
 async function checkDictionaryTrue(word) {
