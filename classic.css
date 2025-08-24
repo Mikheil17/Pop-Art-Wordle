@@ -393,7 +393,7 @@ body.glitchy {
     filter: contrast(2) saturate(3) hue-rotate(120deg);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
 
     html {
         font-size: 10px;
