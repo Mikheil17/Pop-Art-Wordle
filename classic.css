@@ -393,29 +393,24 @@ body.glitchy {
     filter: contrast(2) saturate(3) hue-rotate(120deg);
 }
 
+@media (max-width: 480px) {
 
-@media (max-width: 1024px) {
     html {
         font-size: 10px;
     }
 
-    #game-board .container {
-        width: 80vw;
+    body {
+        margin: 0;
     }
 
     h1 {
-        font-size: 8rem;
+        margin-top: 5rem;
+        margin-bottom: 0;
+        font-size: 6rem;
     }
 
-    .key {
-        height: auto;
-        width: 8vw;
-        aspect-ratio: 1 / 2;
-    }
-
-    .key-l {
-        width: 13vw;
-        aspect-ratio: 1.625 / 2;
+    #game-board .container {
+        width: 80vw;
     }
 
     .row,
@@ -425,10 +420,25 @@ body.glitchy {
         gap: 0.6rem;
     }
 
-}
 
-@media (min-width: 768px) and (max-width: 1199.98px) {
-    button {
-        font-size: 4rem;
+    .key {
+    height: 6rem;
+    width: 3.2rem;
+    }
+
+    .key-l {
+        width: 5rem;
+    }
+
+    #keyboard button {
+        font-size: 2rem;
+    }
+
+    .enter button {
+        font-size: 1.2rem !important;
+    }
+
+    #reveal-button {
+        font-size: 1.5rem;
     }
 }

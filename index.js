@@ -35,17 +35,38 @@ const soundPaths = [
     './Sounds/glitch3.m4a'
 ];
 
-function preloadEverything() {
+const images = {};
+const sounds = {};
+
+function preloadImages() {
     imagePaths.forEach(path => {
+        const name = path.split("/").pop().split(".")[0];
         const img = new Image();
         img.src = path;
+        images[name] = img;
     });
+}
 
+function preloadSounds() {
     soundPaths.forEach(path => {
+        const name = path.split("/").pop().split(".")[0];
         const audio = new Audio(path);
-        audio.preload = 'auto';
-        audio.load();
+        audio.preload = "auto";
+        sounds[name] = audio;
     });
+}
+
+function preloadEverything() {
+    preloadImages();
+    preloadSounds();
+}
+
+function playSound(name) {
+    if (sounds[name]) {
+        const soundClone = sounds[name].cloneNode();
+        soundClone.currentTime = 0;
+        soundClone.play().catch(() => {});
+    }
 }
 
 window.addEventListener('load', preloadEverything);
@@ -174,16 +195,16 @@ function showMessage(msg) {
 }
 
 function showComicMessage(word, duration) {
-    new Audio('./Sounds/bang.mp3').play();
+    playSound("bang");
     const img = document.getElementById("msg-img");
-    img.src = `./Images/explosions/${word}.png`;
+    img.src = images[word].src;
+
     $("#comic-message").removeClass("hidden");
     setTimeout(function() {
         $("#comic-message").addClass("hidden");
         img.src = "";
     }, duration);
 }
-
 
 async function dance(row) {
     for (let i = 0; i < 5; i++) {
@@ -217,7 +238,7 @@ async function inputLetter(key) {
             isInputLocked = false;
             $(".delete").removeClass("pressed");
             if (isComic) {
-                new Audio("./Sounds/typing.mp3").play();
+                playSound("typing");
             }
         };
 
@@ -228,7 +249,7 @@ async function inputLetter(key) {
         isInputLocked = false;
         $(".enter").removeClass("pressed");
         if (isComic) {
-            new Audio("./Sounds/typing.mp3").play();
+            playSound("typing");
         }
 
         if (index >= 5) {
@@ -262,7 +283,7 @@ async function inputLetter(key) {
         index++;
         chosenWordArray.push(key);
         if (isComic) {
-            new Audio("./Sounds/typing.mp3").play();
+            playSound("typing");
         }
     }
     if (chosenWordArray.length > 5) {
@@ -324,9 +345,7 @@ function confettiExplosion(row) {
 
 $("#reveal-button").click(function() {
     if (isComic) {
-        const sound = new Audio('./Sounds/button.mp3');
-        sound.currentTime = 0;
-        sound.play();
+        playSound("button");
     }
 
     $('h1').text(randomWord);
@@ -338,9 +357,7 @@ $("#reveal-button").click(function() {
 
 $('#toggle-mode').change(function() {
     const styleLink = document.getElementById("theme-style");
-    const sound = new Audio('./Sounds/switch.mp3');
-    sound.currentTime = 0;
-    sound.play();
+    playSound("switch");
 
     if (this.checked) {
         styleLink.href = "comic.css";
@@ -358,28 +375,14 @@ async function glitchEffect(duration = 200) {
     const originalHref = styleLink.getAttribute("href");
 
     let isComicTheme = originalHref.includes("comic.css");
-    let startTime = performance.now();
 
     $("body").addClass("glitchy glitch-overlay");
 
-    const glitchSounds = [
-        new Audio('./Sounds/glitch1.m4a'),
-        new Audio('./Sounds/glitch3.m4a')
-    ];
-
-    glitchSounds.forEach(sound => {
-        sound.preload = "auto";
-        sound.load();
-    });
-
-
-    const sound = glitchSounds[Math.floor(Math.random() * glitchSounds.length)];
-    sound.currentTime = 0;
-    sound.play().catch(() => {});
-
+    const glitchSoundNames = ["glitch1", "glitch3"];
+    const soundName = glitchSoundNames[Math.floor(Math.random() * glitchSoundNames.length)];
+    playSound(soundName);
 
     const interval = setInterval(() => {
-
         styleLink.href = isComicTheme ? "classic.css" : "comic.css";
         isComicTheme = !isComicTheme;
     }, 30);
