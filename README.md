@@ -1,27 +1,20 @@
-A chaotic, retro twist on the classic Wordle game, complete with Marilyn Monroe tiles, vibrant comic book backgrounds, and neon-fueled flair that bursts off the screen.
+# Pop Art Wordle
 
-Features
----------
-Fully playable Wordle game with all the classic guessing fun you love.
-Toggle switch to seamlessly switch between classic mode and Pop Art madness.
-Pop Art mode: dive into a kaleidoscope of colors, dynamic animations, sound effects, and bold visuals inspired by comic books and pop culture.
-Reveal Answer button for those in need.
+A creative, retro-inspired reimagining of the classic Wordle game with pop art visuals and interactive enhancements.
 
-How to Play
------------
-Go to https://www.nytimes.com/games/wordle/index.html and read the instructions.
+Live Demo: https://mikheil17.github.io/Pop-Art-Wordle
 
-Warning 
------------
-This game contains bright flashing colors and rapid animations. Please play responsibly.
-I am not responsible for any headaches, eye strain, or blindness caused by this creation. Blame Eduardo Paolozzi, or whoever made Pop Art!
+## What It Is
+A fully playable Wordle implementation featuring a toggleable Pop Art mode with bold visuals, sound effects, and animated UI elements.
 
-Built With
------------
-HTML5, CSS3, and JavaScript
+## Tech
+HTML | CSS | JavaScript
 
-Inspired by classic Wordle mechanics and the vibrant spirit of Pop Art
+## Key Features
+- Classic Wordle gameplay
+- Pop Art mode with custom visuals and animations
+- Sound effects and interactive UI
+- Reveal Answer option
 
-License
------------
-Feel free to use and share! Just don’t blame me for any migraines.
+## Context
+Personal front-end project exploring UI customization, interactivity, and visual design inspired by pop art aesthetics.
